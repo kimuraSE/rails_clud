@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    build: 
+      context: ./db/
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: rails_db
+      TZ: Asia/Tokyo
+    ports:
+      - '5432:5432'
+
+  backend:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    container_name: rails-api
+    ports:
+      - '8080:8080'
+    working_dir: /backend
+    stop_signal: SIGINT
+    volumes:
+      - ./backend:/backend
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    user: "${UID_GID}"

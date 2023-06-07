@@ -1,0 +1,82 @@
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mLink Load (0.6ms)[0m  [1m[34mSELECT "links".* FROM "links"[0m
+Started POST "/users" for 172.19.0.1 at 2023-06-08 02:12:37 +0900
+Processing by UsersController#create as */*
+  Parameters: {"name"=>"user", "email"=>"usser@gmail.com", "password"=>"[FILTERED]", "user"=>{"name"=>"user", "email"=>"usser@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:15:in `create'
+  [1m[36mUser Create (1.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "user"], ["email", "usser@gmail.com"], ["password", "[FILTERED]"]]
+  ↳ app/controllers/users_controller.rb:15:in `create'
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:15:in `create'
+Completed 201 Created in 23ms (Views: 0.7ms | ActiveRecord: 8.5ms | Allocations: 10502)
+
+
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+Started GET "/users" for 172.19.0.1 at 2023-06-08 02:13:35 +0900
+Processing by UsersController#index as */*
+  Parameters: {"name"=>"user", "email"=>"usser@gmail.com", "password"=>"[FILTERED]", "user"=>{"name"=>"user", "email"=>"usser@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:6:in `index'
+Completed 200 OK in 5ms (Views: 1.6ms | ActiveRecord: 0.5ms | Allocations: 1967)
+
+
+Started GET "/users/1" for 172.19.0.1 at 2023-06-08 02:14:06 +0900
+Processing by UsersController#show as */*
+  Parameters: {"name"=>"user", "email"=>"usser@gmail.com", "password"=>"[FILTERED]", "id"=>"1", "user"=>{"name"=>"user", "email"=>"usser@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:37:in `set_user'
+Completed 200 OK in 7ms (Views: 0.2ms | ActiveRecord: 0.5ms | Allocations: 2431)
+
+
+Started GET "/links" for 172.19.0.1 at 2023-06-08 02:17:07 +0900
+Processing by LinksController#index as */*
+  Parameters: {"name"=>"user", "email"=>"usser@gmail.com", "password"=>"[FILTERED]", "link"=>{}}
+  [1m[36mLink Load (0.4ms)[0m  [1m[34mSELECT "links".* FROM "links"[0m
+  ↳ app/controllers/links_controller.rb:8:in `index'
+Completed 200 OK in 2ms (Views: 1.2ms | ActiveRecord: 2.1ms | Allocations: 913)
+
+
+Started POST "/links" for 172.19.0.1 at 2023-06-08 02:18:19 +0900
+Processing by LinksController#create as */*
+  Parameters: {"user_id"=>1, "title"=>"hello", "url"=>"world", "link"=>{"user_id"=>1, "title"=>"hello", "url"=>"world"}}
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/links_controller.rb:20:in `create'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/links_controller.rb:20:in `create'
+  [1m[36mLink Create (1.0ms)[0m  [1m[32mINSERT INTO "links" ("user_id", "title", "url", "created_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["title", "hello"], ["url", "world"], ["created_at", "2023-06-07 17:18:19.536108"]]
+  ↳ app/controllers/links_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (1.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/links_controller.rb:20:in `create'
+Completed 201 Created in 32ms (Views: 0.5ms | ActiveRecord: 7.2ms | Allocations: 11826)
+
+
+  [1m[36mLink Load (0.9ms)[0m  [1m[34mSELECT "links".* FROM "links"[0m
+Started GET "/links" for 172.19.0.1 at 2023-06-08 02:19:32 +0900
+Error occurred while parsing request parameters.
+Contents:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Processing by LinksController#index as */*
+  [1m[36mLink Load (0.3ms)[0m  [1m[34mSELECT "links".* FROM "links"[0m
+  ↳ app/controllers/links_controller.rb:8:in `index'
+Completed 200 OK in 2ms (Views: 1.6ms | ActiveRecord: 0.3ms | Allocations: 783)
+
+

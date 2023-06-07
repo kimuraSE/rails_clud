@@ -1,0 +1,54 @@
+class LinksController < ApplicationController
+    #show.update.destroyアクションを実行する前にset_linkを実行する
+    before_action :set_link, only: [:show, :update, :destroy]
+
+    # GET /links
+    def index
+        @links = Link.all
+
+        render json: @links
+    end
+
+    # GET /links/1
+    def show
+        render json: @link
+    end
+
+    # POST /links
+    def create
+        @link = Link.new(link_params)
+
+        if @link.save
+        render json: @link, status: :created, location: @link
+        else
+        render json: @link.errors, status: :unprocessable_entity
+        end
+    end
+
+    # PATCH/PUT /links/1
+    def update
+        if @link.update(link_params)
+        render json: @link
+        else
+        render json: @link.errors, status: :unprocessable_entity
+        end
+    end
+
+    # DELETE /links/1
+    def destroy
+        @link.destroy
+    end
+
+    private
+
+    #パラメータを取得し、データベースを参照する。そして、@linkに代入する。
+    def set_link
+        @link = Link.find(params[:id])
+    end
+
+    #POSTで送られてきたパラメータをuser_id, title, urlのみに絞り込む
+    def link_params
+        params.require(:link).permit(:user_id, :title, :url)
+    end
+
+end
